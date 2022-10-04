@@ -30,8 +30,8 @@ func TestSpec(t *testing.T) {
 	if err := NewCodec().Unmarshal(buf, data, MessageSpec(newSpec())); err != nil {
 		t.Fatal(err)
 	}
-	if data.F7.Value != 311204852 {
-		t.Fatalf("invalid data %#+v", data.F7.Value)
+	if data.F7.Value() != 311204852 {
+		t.Fatalf("invalid data %#+v", data.F7.Value())
 	}
 }
 
