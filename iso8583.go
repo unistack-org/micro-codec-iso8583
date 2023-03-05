@@ -6,6 +6,7 @@ import (
 	"io"
 
 	"github.com/moov-io/iso8583"
+	pb "go.unistack.org/micro-proto/v3/codec"
 	"go.unistack.org/micro/v3/codec"
 )
 
@@ -25,7 +26,10 @@ func (c *iso8583Codec) Marshal(v interface{}, opts ...codec.Option) ([]byte, err
 		o(&options)
 	}
 
-	if m, ok := v.(*codec.Frame); ok {
+	switch m := v.(type) {
+	case *codec.Frame:
+		return m.Data, nil
+	case *pb.Frame:
 		return m.Data, nil
 	}
 
@@ -42,7 +46,11 @@ func (c *iso8583Codec) Unmarshal(b []byte, v interface{}, opts ...codec.Option) 
 		o(&options)
 	}
 
-	if m, ok := v.(*codec.Frame); ok {
+	switch m := v.(type) {
+	case *codec.Frame:
+		m.Data = b
+		return nil
+	case *pb.Frame:
 		m.Data = b
 		return nil
 	}
