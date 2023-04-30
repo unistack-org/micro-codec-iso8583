@@ -9,7 +9,7 @@ import (
 	"github.com/moov-io/iso8583/field"
 	"github.com/moov-io/iso8583/padding"
 	"github.com/moov-io/iso8583/prefix"
-	"go.unistack.org/micro/v3/codec"
+	"go.unistack.org/micro/v4/codec"
 )
 
 func TestFrame(t *testing.T) {
