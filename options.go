@@ -2,7 +2,7 @@ package iso8583
 
 import (
 	"github.com/moov-io/iso8583"
-	codec "go.unistack.org/micro/v3/codec"
+	codec "go.unistack.org/micro/v4/codec"
 )
 
 type specKey struct{}
