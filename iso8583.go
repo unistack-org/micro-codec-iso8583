@@ -61,6 +61,7 @@ func (c *iso8583Codec) Unmarshal(b []byte, v interface{}, opts ...codec.Option) 
 		return nil
 	case codec.RawMessage:
 		copy(m, b)
+		return nil
 	}
 
 	var spec *iso8583.MessageSpec
