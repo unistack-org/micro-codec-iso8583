@@ -3,7 +3,6 @@ package iso8583 // import "go.unistack.org/micro-codec-iso8583/v3"
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/moov-io/iso8583"
 	pb "go.unistack.org/micro-proto/v3/codec"
@@ -31,6 +30,10 @@ func (c *iso8583Codec) Marshal(v interface{}, opts ...codec.Option) ([]byte, err
 		return m.Data, nil
 	case *pb.Frame:
 		return m.Data, nil
+	case codec.RawMessage:
+		return []byte(m), nil
+	case *codec.RawMessage:
+		return []byte(*m), nil
 	}
 
 	return nil, nil
@@ -53,6 +56,11 @@ func (c *iso8583Codec) Unmarshal(b []byte, v interface{}, opts ...codec.Option) 
 	case *pb.Frame:
 		m.Data = b
 		return nil
+	case *codec.RawMessage:
+		*m = append((*m)[0:0], b...)
+		return nil
+	case codec.RawMessage:
+		copy(m, b)
 	}
 
 	var spec *iso8583.MessageSpec
@@ -72,39 +80,6 @@ func (c *iso8583Codec) Unmarshal(b []byte, v interface{}, opts ...codec.Option) 
 	}
 
 	return message.Unmarshal(v)
-}
-
-func (c *iso8583Codec) ReadHeader(conn io.Reader, m *codec.Message, t codec.MessageType) error {
-	return nil
-}
-
-func (c *iso8583Codec) ReadBody(conn io.Reader, v interface{}) error {
-	if v == nil {
-		return nil
-	}
-
-	buf, err := io.ReadAll(conn)
-	if err != nil {
-		return err
-	} else if len(buf) == 0 {
-		return nil
-	}
-
-	return c.Unmarshal(buf, v)
-}
-
-func (c *iso8583Codec) Write(conn io.Writer, m *codec.Message, v interface{}) error {
-	if v == nil {
-		return nil
-	}
-
-	buf, err := c.Marshal(v)
-	if err != nil {
-		return err
-	}
-
-	_, err = conn.Write(buf)
-	return err
 }
 
 func (c *iso8583Codec) String() string {
