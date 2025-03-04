@@ -1,12 +1,12 @@
 // Package iso8583 provides a iso8583 codec
-package iso8583 // import "go.unistack.org/micro-codec-iso8583/v3"
+package iso8583
 
 import (
 	"fmt"
 
 	"github.com/moov-io/iso8583"
-	pb "go.unistack.org/micro-proto/v3/codec"
-	"go.unistack.org/micro/v3/codec"
+	pb "go.unistack.org/micro-proto/v4/codec"
+	"go.unistack.org/micro/v4/codec"
 )
 
 type iso8583Codec struct {

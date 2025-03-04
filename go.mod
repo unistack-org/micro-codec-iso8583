@@ -1,11 +1,11 @@
-module go.unistack.org/micro-codec-iso8583/v3
+module go.unistack.org/micro-codec-iso8583/v4
 
 go 1.23.4
 
 require (
 	github.com/moov-io/iso8583 v0.23.2
-	go.unistack.org/micro-proto/v3 v3.4.1
-	go.unistack.org/micro/v3 v3.11.41
+	go.unistack.org/micro-proto/v4 v4.1.0
+	go.unistack.org/micro/v4 v4.1.2
 )
 
 require (
