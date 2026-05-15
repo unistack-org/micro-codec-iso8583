@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	"github.com/moov-io/iso8583"
-	pb "go.unistack.org/micro-proto/v4/codec"
-	"go.unistack.org/micro/v4/codec"
+	pb "go.unistack.org/micro-proto/v5/codec"
+	"go.unistack.org/micro/v5/codec"
 )
 
 type iso8583Codec struct {
